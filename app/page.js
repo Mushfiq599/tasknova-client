@@ -1,21 +1,20 @@
+import MainLayout from '../components/shared/MainLayout'
+import HeroSection from '../components/home/HeroSection'
+import StatsSection from '../components/home/StatsSection'
+import HowItWorks from '../components/home/HowItWorks'
+import TopWorkers from '../components/home/TopWorkers'
+import Testimonials from '../components/home/Testimonials'
+import CTASection from '../components/home/CTASection'
 
 export default function HomePage() {
   return (
-    <main style={{
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexDirection: 'column',
-      gap: '16px',
-    }}>
-      <span style={{ fontSize: '52px' }}>⬡</span>
-      <h1 style={{ fontSize: '32px', fontWeight: 600, color: '#00D4FF' }}>
-        TaskNova
-      </h1>
-      <p style={{ color: '#8892A4', fontSize: '14px' }}>
-        Foundation ready — building in progress...
-      </p>
-    </main>
+    <MainLayout>
+      <HeroSection />
+      <StatsSection />
+      <HowItWorks />
+      <TopWorkers />
+      <Testimonials />
+      <CTASection />
+    </MainLayout>
   )
 }
