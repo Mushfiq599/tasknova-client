@@ -17,6 +17,7 @@ export const AuthContext = createContext(null)
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [role, setRole] = useState(null)
+    const [coins, setCoins] = useState(0)
     const [loading, setLoading] = useState(true)
 
     const register = (email, password) =>
@@ -33,15 +34,31 @@ const AuthProvider = ({ children }) => {
     const logout = () => {
         localStorage.removeItem('access-token')
         setRole(null)
+        setCoins(0)
         return signOut(auth)
     }
 
-    const fetchRole = async (email) => {
+    const fetchUserData = async (email) => {
         try {
-            const res = await axiosInstance.get(`/users/role/${email}`)
-            setRole(res.data.role)
+            const [roleRes, coinsRes] = await Promise.all([
+                axiosInstance.get(`/users/role/${email}`),
+                axiosInstance.get(`/users/coins/${email}`),
+            ])
+            setRole(roleRes.data.role)
+            setCoins(coinsRes.data.coins || 0)
         } catch {
             setRole(null)
+            setCoins(0)
+        }
+    }
+
+    // Call this to refresh coins after any transaction
+    const refreshCoins = async (email) => {
+        try {
+            const res = await axiosInstance.get(`/users/coins/${email}`)
+            setCoins(res.data.coins || 0)
+        } catch {
+            // silent
         }
     }
 
@@ -55,9 +72,9 @@ const AuthProvider = ({ children }) => {
                     })
                     localStorage.setItem('access-token', res.data.token)
                 } catch {
-                    // silent — token may already exist
+                    // silent
                 }
-                await fetchRole(currentUser.email)
+                await fetchUserData(currentUser.email)
             }
             setLoading(false)
         })
@@ -66,9 +83,10 @@ const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={{
-            user, role, loading,
+            user, role, coins, loading,
             register, updateUserProfile,
             login, googleLogin, logout,
+            refreshCoins,
         }}>
             {children}
         </AuthContext.Provider>

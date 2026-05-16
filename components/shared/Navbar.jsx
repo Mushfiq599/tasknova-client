@@ -11,7 +11,7 @@ import useAuth from '../../hooks/useAuth'
 import { capitalize } from '../../utils/helpers'
 
 const Navbar = () => {
-    const { user, role, logout } = useAuth()
+    const { user, role, coins, logout } = useAuth()
     const router = useRouter()
     const [scrolled, setScrolled] = useState(false)
     const [menuOpen, setMenuOpen] = useState(false)
@@ -91,7 +91,7 @@ const Navbar = () => {
                                 display: 'flex', alignItems: 'center', gap: '6px',
                             }}>
                                 <span style={{ color: '#00D4FF' }}>⬡</span>
-                                <span>{user?.coins ?? 0} coins</span>
+                                <span>{coins ?? 0} coins</span>
                             </div>
 
                             {/* Dashboard link */}
