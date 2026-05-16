@@ -1,3 +1,7 @@
-export default function Page() {
-  return <div style={{color:"#8892A4",padding:"24px"}}>Coming soon...</div>
+import ManageUsers from '../../../components/dashboard/admin/ManageUsers'
+
+export const metadata = { title: 'Manage Users — TaskNova' }
+
+export default function ManageUsersPage() {
+  return <ManageUsers />
 }

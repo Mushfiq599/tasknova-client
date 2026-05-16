@@ -1,3 +1,7 @@
-export default function Page() {
-  return <div style={{color:"#8892A4",padding:"24px"}}>Coming soon...</div>
+import AdminHome from '../../../components/dashboard/admin/AdminHome'
+
+export const metadata = { title: 'Admin Home — TaskNova' }
+
+export default function AdminHomePage() {
+  return <AdminHome />
 }
