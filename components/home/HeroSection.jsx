@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { FiArrowRight, FiPlay } from 'react-icons/fi'
+import { FiArrowRight } from 'react-icons/fi'
+import { useTheme } from '../../context/ThemeContext'
 
 const slides = [
     {
@@ -35,10 +36,11 @@ const slides = [
 ]
 
 const HeroSection = () => {
+    const { theme } = useTheme()
+    const isLight = theme === 'light'
     const [current, setCurrent] = useState(0)
     const [animating, setAnimating] = useState(false)
 
-    // Auto-advance slides
     useEffect(() => {
         const timer = setInterval(() => goTo((current + 1) % slides.length), 5000)
         return () => clearInterval(timer)
@@ -47,13 +49,13 @@ const HeroSection = () => {
     const goTo = (idx) => {
         if (animating) return
         setAnimating(true)
-        setTimeout(() => {
-            setCurrent(idx)
-            setAnimating(false)
-        }, 300)
+        setTimeout(() => { setCurrent(idx); setAnimating(false) }, 300)
     }
 
     const slide = slides[current]
+
+    // In light mode use blue accent, else use slide accent
+    const accent = isLight ? '#0284C7' : slide.accent
 
     return (
         <section style={{
@@ -62,29 +64,27 @@ const HeroSection = () => {
             display: 'flex',
             alignItems: 'center',
             overflow: 'hidden',
+            background: isLight ? '#E0F2FE' : 'transparent',
         }}>
-            {/* Background grid */}
-            <div className="bg-grid" style={{
-                position: 'absolute', inset: 0, opacity: 0.6,
-            }} />
+
+            {/* Grid — dark mode only */}
+            {!isLight && (
+                <div className="bg-grid" style={{ position: 'absolute', inset: 0, opacity: 0.6 }} />
+            )}
 
             {/* Glow blobs */}
             <div style={{
-                position: 'absolute',
-                top: '20%', left: '10%',
+                position: 'absolute', top: '20%', left: '10%',
                 width: '400px', height: '400px',
-                background: `radial-gradient(circle, ${slide.accent}18 0%, transparent 70%)`,
-                borderRadius: '50%',
+                background: `radial-gradient(circle, ${accent}18 0%, transparent 70%)`,
+                borderRadius: '50%', pointerEvents: 'none',
                 transition: 'background 0.8s ease',
-                pointerEvents: 'none',
             }} />
             <div style={{
-                position: 'absolute',
-                bottom: '10%', right: '5%',
+                position: 'absolute', bottom: '10%', right: '5%',
                 width: '300px', height: '300px',
-                background: 'radial-gradient(circle, #7C3AED18 0%, transparent 70%)',
-                borderRadius: '50%',
-                pointerEvents: 'none',
+                background: isLight ? 'radial-gradient(circle, #0284C718, transparent 70%)' : 'radial-gradient(circle, #7C3AED18 0%, transparent 70%)',
+                borderRadius: '50%', pointerEvents: 'none',
             }} />
 
             <div className="container" style={{ position: 'relative', zIndex: 1, paddingTop: '100px', paddingBottom: '80px' }}>
@@ -94,55 +94,61 @@ const HeroSection = () => {
                     transform: animating ? 'translateY(16px)' : 'translateY(0)',
                     transition: 'all 0.4s ease',
                 }}>
+
                     {/* Tag */}
                     <div style={{
                         display: 'inline-flex', alignItems: 'center', gap: '8px',
-                        background: `${slide.accent}15`,
-                        border: `1px solid ${slide.accent}44`,
-                        borderRadius: '20px',
-                        padding: '6px 14px',
-                        marginBottom: '24px',
+                        background: `${accent}15`,
+                        border: `1px solid ${accent}44`,
+                        borderRadius: '20px', padding: '6px 14px', marginBottom: '24px',
                     }}>
                         <div style={{
                             width: '6px', height: '6px', borderRadius: '50%',
-                            background: slide.accent,
+                            background: accent,
                             animation: 'glowPulse 2s ease-in-out infinite',
                         }} />
-                        <span style={{ fontSize: '13px', color: slide.accent, fontWeight: 500 }}>
+                        <span style={{ fontSize: '13px', color: accent, fontWeight: 500 }}>
                             {slide.tag}
                         </span>
                     </div>
 
-                    {/* Heading */}
+                    {/* Main title — always dark in light mode */}
                     <h1 style={{
                         fontSize: 'clamp(36px, 6vw, 64px)',
                         fontWeight: 700,
                         lineHeight: 1.1,
-                        color: '#E8EAF0',
+                        color: isLight ? '#0C1A2E' : '#E8EAF0',
                         marginBottom: '8px',
                         fontFamily: 'Space Grotesk, sans-serif',
                     }}>
                         {slide.title}
                     </h1>
+
+                    {/* Highlight — gradient in dark, solid color in light */}
                     <h1 style={{
                         fontSize: 'clamp(36px, 6vw, 64px)',
                         fontWeight: 700,
                         lineHeight: 1.1,
                         marginBottom: '24px',
                         fontFamily: 'Space Grotesk, sans-serif',
-                        background: `linear-gradient(135deg, ${slide.accent}, #A78BFA)`,
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text',
+                        ...(isLight
+                            ? { color: '#0284C7' }
+                            : {
+                                background: `linear-gradient(135deg, ${slide.accent}, #A78BFA)`,
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent',
+                                backgroundClip: 'text',
+                            }
+                        ),
                     }}>
                         {slide.highlight}
                     </h1>
 
                     {/* Subtitle */}
                     <p style={{
-                        fontSize: '17px', color: '#8892A4',
-                        lineHeight: 1.7, maxWidth: '520px',
-                        marginBottom: '36px',
+                        fontSize: '17px',
+                        color: isLight ? '#0C4A6E' : '#8892A4',
+                        lineHeight: 1.7, maxWidth: '520px', marginBottom: '36px',
                     }}>
                         {slide.subtitle}
                     </p>
@@ -150,7 +156,7 @@ const HeroSection = () => {
                     {/* CTAs */}
                     <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                         <Link href={slide.cta.href} className="btn-primary" style={{
-                            borderColor: slide.accent, color: slide.accent,
+                            borderColor: accent, color: accent,
                             fontSize: '15px', padding: '12px 28px',
                         }}>
                             {slide.cta.label} <FiArrowRight size={16} />
@@ -163,37 +169,30 @@ const HeroSection = () => {
                     </div>
 
                     {/* Trust badges */}
-                    <div style={{
-                        display: 'flex', gap: '24px', marginTop: '48px',
-                        flexWrap: 'wrap',
-                    }}>
+                    <div style={{ display: 'flex', gap: '24px', marginTop: '48px', flexWrap: 'wrap' }}>
                         {[
                             { val: '10K+', label: 'Active Workers' },
                             { val: '50K+', label: 'Tasks Completed' },
                             { val: '$120K', label: 'Total Paid Out' },
                         ].map(({ val, label }) => (
                             <div key={label}>
-                                <p style={{ fontSize: '22px', fontWeight: 700, color: '#E8EAF0' }}>{val}</p>
-                                <p style={{ fontSize: '12px', color: '#4A5568', marginTop: '2px' }}>{label}</p>
+                                <p style={{ fontSize: '22px', fontWeight: 700, color: isLight ? '#0C1A2E' : '#E8EAF0' }}>{val}</p>
+                                <p style={{ fontSize: '12px', color: isLight ? '#0C4A6E' : '#4A5568', marginTop: '2px' }}>{label}</p>
                             </div>
                         ))}
                     </div>
                 </div>
 
                 {/* Slide indicators */}
-                <div style={{
-                    display: 'flex', gap: '8px',
-                    marginTop: '48px',
-                }}>
+                <div style={{ display: 'flex', gap: '8px', marginTop: '48px' }}>
                     {slides.map((_, i) => (
                         <button
                             key={i}
                             onClick={() => goTo(i)}
                             style={{
                                 width: i === current ? '28px' : '8px',
-                                height: '8px',
-                                borderRadius: '4px',
-                                background: i === current ? slide.accent : '#1B3358',
+                                height: '8px', borderRadius: '4px',
+                                background: i === current ? accent : (isLight ? '#BAE6FD' : '#1B3358'),
                                 border: 'none', cursor: 'pointer',
                                 transition: 'all 0.3s ease',
                             }}
