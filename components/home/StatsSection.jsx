@@ -16,10 +16,7 @@ const colors = {
 
 const StatsSection = () => {
     return (
-        <section style={{
-            padding: '0 0 80px',
-            background: 'linear-gradient(180deg, transparent, #080C1888)',
-        }}>
+        <section style={{ padding: '0 0 80px' }}>
             <div className="container">
                 <div style={{
                     display: 'grid',

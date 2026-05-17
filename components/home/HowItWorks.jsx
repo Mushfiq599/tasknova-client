@@ -42,7 +42,7 @@ const StepCard = ({ step, title, desc, icon, accent }) => (
 
 const HowItWorks = () => {
     return (
-        <section id="how-it-works" className="section" style={{ background: '#080C1888' }}>
+        <section id="how-it-works" className="section">
             <div className="container">
                 <SectionHeading
                     label="How It Works"

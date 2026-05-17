@@ -72,7 +72,7 @@ const Testimonials = () => {
     }
 
     return (
-        <section id="testimonials" className="section" style={{ background: '#080C1888' }}>
+        <section id="testimonials" className="section">
             <div className="container">
                 <SectionHeading
                     label="Testimonials"
