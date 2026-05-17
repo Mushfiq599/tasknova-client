@@ -112,12 +112,12 @@ const HeroSection = () => {
                         </span>
                     </div>
 
-                    {/* Main title — always dark in light mode */}
+                    {/* Main title — primary blue in light mode */}
                     <h1 style={{
                         fontSize: 'clamp(36px, 6vw, 64px)',
                         fontWeight: 700,
                         lineHeight: 1.1,
-                        color: isLight ? '#0C1A2E' : '#E8EAF0',
+                        color: isLight ? '#0284C7' : '#E8EAF0',
                         marginBottom: '8px',
                         fontFamily: 'Space Grotesk, sans-serif',
                     }}>
