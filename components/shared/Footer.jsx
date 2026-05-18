@@ -37,45 +37,34 @@ const Footer = () => {
             paddingTop: '60px',
         }}>
             <div className="container">
-                {/* Top row */}
                 <div style={{
                     display: 'grid',
                     gridTemplateColumns: '2fr 1fr 1fr 1fr',
                     gap: '40px',
                     paddingBottom: '48px',
                     borderBottom: '1px solid #1B3358',
-                }}
-                    className="footer-grid"
-                >
+                }} className="footer-grid">
+
                     {/* Brand */}
                     <div>
                         <Logo />
                         <p style={{
                             fontSize: '14px', color: '#8892A4',
-                            lineHeight: 1.7, marginTop: '16px',
-                            maxWidth: '280px',
+                            lineHeight: 1.7, marginTop: '16px', maxWidth: '280px',
                         }}>
                             Complete micro tasks, earn coins, and withdraw real money.
                             TaskNova connects workers with buyers on a trusted platform.
                         </p>
-                        {/* Social icons */}
                         <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
-                            {socialLinks.map((s) => (
-                                <a
-                                    key={s.label}
-                                    href={s.href}
-                                    target="_blank"
-                                    rel="noreferrer"
+                            {socialLinks.map(s => (
+                                <a key={s.label} href={s.href} target="_blank" rel="noreferrer"
                                     aria-label={s.label}
                                     style={{
                                         width: '36px', height: '36px',
-                                        background: '#111827',
-                                        border: '1px solid #1B3358',
+                                        background: '#111827', border: '1px solid #1B3358',
                                         borderRadius: '8px',
                                         display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                        color: '#8892A4',
-                                        transition: 'all 0.2s',
-                                        textDecoration: 'none',
+                                        color: '#8892A4', transition: 'all 0.2s', textDecoration: 'none',
                                     }}
                                     onMouseEnter={e => {
                                         e.currentTarget.style.borderColor = '#00D4FF'
@@ -96,14 +85,13 @@ const Footer = () => {
                     {Object.entries(footerLinks).map(([title, links]) => (
                         <div key={title}>
                             <p style={{
-                                fontSize: '12px', fontWeight: 600,
-                                color: '#E8EAF0', textTransform: 'uppercase',
-                                letterSpacing: '0.08em', marginBottom: '16px',
+                                fontSize: '12px', fontWeight: 600, color: '#E8EAF0',
+                                textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '16px',
                             }}>
                                 {title}
                             </p>
                             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                                {links.map((link) => (
+                                {links.map(link => (
                                     <li key={link.label}>
                                         <Link href={link.href} style={{
                                             fontSize: '14px', color: '#8892A4',
@@ -121,12 +109,10 @@ const Footer = () => {
                     ))}
                 </div>
 
-                {/* Bottom row */}
+                {/* Bottom */}
                 <div style={{
-                    display: 'flex', alignItems: 'center',
-                    justifyContent: 'space-between',
-                    padding: '20px 0',
-                    fontSize: '13px', color: '#4A5568',
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    padding: '20px 0', fontSize: '13px', color: '#4A5568',
                     flexWrap: 'wrap', gap: '8px',
                 }}>
                     <p>© {new Date().getFullYear()} TaskNova. All rights reserved.</p>
@@ -134,18 +120,9 @@ const Footer = () => {
                 </div>
             </div>
 
-            {/* Responsive */}
             <style>{`
-        @media (max-width: 768px) {
-          .footer-grid {
-            grid-template-columns: 1fr 1fr !important;
-          }
-        }
-        @media (max-width: 480px) {
-          .footer-grid {
-            grid-template-columns: 1fr !important;
-          }
-        }
+        @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr !important; } }
+        @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr !important; } }
       `}</style>
         </footer>
     )

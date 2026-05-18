@@ -20,19 +20,12 @@ const SectionHeading = ({ label, title, highlight, subtitle, center = false }) =
             )}
             <h2 style={{
                 fontSize: '32px', fontWeight: 700,
-                color: isLight ? '#0284C7' : '#E8EAF0',
+                color: isLight ? '#0C1A2E' : '#E8EAF0',
                 lineHeight: 1.2, marginBottom: '12px',
             }}>
                 {title}{' '}
                 {highlight && (
-                    <span style={{
-                        background: isLight
-                            ? 'linear-gradient(135deg, #0284C7, #7C3AED)'
-                            : 'linear-gradient(135deg, #00D4FF, #A78BFA)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text',
-                    }}>
+                    <span style={{ color: isLight ? '#0284C7' : '#00D4FF' }}>
                         {highlight}
                     </span>
                 )}
@@ -40,7 +33,7 @@ const SectionHeading = ({ label, title, highlight, subtitle, center = false }) =
             {subtitle && (
                 <p style={{
                     fontSize: '15px',
-                    color: isLight ? '#0284C7' : '#8892A4',
+                    color: isLight ? '#0C4A6E' : '#8892A4',
                     maxWidth: '540px',
                     margin: center ? '0 auto' : '0',
                     lineHeight: 1.7,
