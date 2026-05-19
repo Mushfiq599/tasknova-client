@@ -11,6 +11,13 @@ import ThemeToggle from '../ui/ThemeToggle'
 import useAuth from '../../hooks/useAuth'
 import { capitalize } from '../../utils/helpers'
 
+// HARDCODED DARK — never changes regardless of theme
+const NAV_BG = '#080C18'
+const NAV_BG_SCROLL = 'rgba(8,12,24,0.92)'
+const NAV_BORDER = '#1B3358'
+const NAV_TEXT = '#E8EAF0'
+const NAV_MUTED = '#8892A4'
+
 const Navbar = () => {
     const { user, role, coins, logout } = useAuth()
     const router = useRouter()
@@ -27,7 +34,8 @@ const Navbar = () => {
 
     useEffect(() => {
         const handler = (e) => {
-            if (dropRef.current && !dropRef.current.contains(e.target)) setDropOpen(false)
+            if (dropRef.current && !dropRef.current.contains(e.target))
+                setDropOpen(false)
         }
         document.addEventListener('mousedown', handler)
         return () => document.removeEventListener('mousedown', handler)
@@ -38,19 +46,16 @@ const Navbar = () => {
         router.push('/')
     }
 
-    // Always dark — same for both themes
-    const bg = scrolled ? '#080C18ee' : '#080C18'
-    const border = '#1B3358'
-
     return (
         <nav style={{
             position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-            background: bg,
-            borderBottom: `1px solid ${border}`,
+            background: scrolled ? NAV_BG_SCROLL : NAV_BG,
+            borderBottom: `1px solid ${NAV_BORDER}`,
             backdropFilter: scrolled ? 'blur(12px)' : 'none',
             transition: 'all 0.3s ease',
         }}>
-            <div className="container" style={{
+            <div style={{
+                maxWidth: '1200px', margin: '0 auto', padding: '0 24px',
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                 height: scrolled ? '60px' : '72px',
                 transition: 'height 0.3s ease',
@@ -58,20 +63,38 @@ const Navbar = () => {
                 <Logo />
 
                 {/* Desktop */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }} className="desktop-nav">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+                    className="desktop-nav">
                     {!user ? (
                         <>
                             <ThemeToggle />
                             <a href="https://github.com" target="_blank" rel="noreferrer"
-                                className="btn-ghost btn-sm" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                <FiGithub size={14} /> Join as Developer
+                                style={{
+                                    background: 'transparent', border: `1px solid ${NAV_BORDER}`,
+                                    color: NAV_MUTED, padding: '6px 14px', borderRadius: '8px',
+                                    fontSize: '12px', fontWeight: 500, cursor: 'pointer',
+                                    display: 'inline-flex', alignItems: 'center', gap: '6px',
+                                    textDecoration: 'none', transition: 'all 0.2s',
+                                }}>
+                                <FiGithub size={13} /> Join as Developer
                             </a>
-                            <Link href="/login" className="btn-ghost btn-sm">Login</Link>
-                            <Link href="/register" className="btn-primary btn-sm">Register</Link>
+                            <Link href="/login" style={{
+                                background: 'transparent', border: `1px solid ${NAV_BORDER}`,
+                                color: NAV_MUTED, padding: '6px 14px', borderRadius: '8px',
+                                fontSize: '12px', fontWeight: 500, cursor: 'pointer',
+                                textDecoration: 'none', transition: 'all 0.2s',
+                            }}>Login</Link>
+                            <Link href="/register" style={{
+                                background: 'transparent', border: '1px solid #00D4FF',
+                                color: '#00D4FF', padding: '6px 14px', borderRadius: '8px',
+                                fontSize: '12px', fontWeight: 500, cursor: 'pointer',
+                                textDecoration: 'none', transition: 'all 0.2s',
+                            }}>Register</Link>
                         </>
                     ) : (
                         <>
                             <ThemeToggle />
+                            {/* Coin pill */}
                             <div style={{
                                 background: '#7C3AED18', border: '1px solid #7C3AED55',
                                 borderRadius: '20px', padding: '5px 14px',
@@ -81,18 +104,35 @@ const Navbar = () => {
                                 <span style={{ color: '#00D4FF' }}>⬡</span>
                                 <span>{coins ?? 0} coins</span>
                             </div>
-                            <Link href="/dashboard" className="btn-ghost btn-sm">Dashboard</Link>
+                            <Link href="/dashboard" style={{
+                                background: 'transparent', border: `1px solid ${NAV_BORDER}`,
+                                color: NAV_MUTED, padding: '6px 14px', borderRadius: '8px',
+                                fontSize: '12px', fontWeight: 500, cursor: 'pointer',
+                                textDecoration: 'none', transition: 'all 0.2s',
+                            }}>Dashboard</Link>
                             <a href="https://github.com" target="_blank" rel="noreferrer"
-                                className="btn-ghost btn-sm" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                <FiGithub size={14} /> Join as Developer
+                                style={{
+                                    background: 'transparent', border: `1px solid ${NAV_BORDER}`,
+                                    color: NAV_MUTED, padding: '6px 14px', borderRadius: '8px',
+                                    fontSize: '12px', fontWeight: 500, cursor: 'pointer',
+                                    display: 'inline-flex', alignItems: 'center', gap: '6px',
+                                    textDecoration: 'none', transition: 'all 0.2s',
+                                }}>
+                                <FiGithub size={13} /> Join as Developer
                             </a>
+                            {/* Avatar dropdown */}
                             <div ref={dropRef} style={{ position: 'relative' }}>
-                                <button onClick={() => setDropOpen(!dropOpen)}
-                                    style={{ background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+                                <button onClick={() => setDropOpen(!dropOpen)} style={{
+                                    background: 'transparent', border: 'none',
+                                    cursor: 'pointer', display: 'flex', alignItems: 'center',
+                                }}>
                                     <img
                                         src={user?.photoURL || `https://api.dicebear.com/7.x/identicon/svg?seed=${user?.email}`}
                                         alt="avatar"
-                                        style={{ width: '34px', height: '34px', borderRadius: '50%', border: '2px solid #1B3358', objectFit: 'cover' }}
+                                        style={{
+                                            width: '34px', height: '34px', borderRadius: '50%',
+                                            border: `2px solid ${NAV_BORDER}`, objectFit: 'cover',
+                                        }}
                                     />
                                 </button>
                                 {dropOpen && (
@@ -100,7 +140,7 @@ const Navbar = () => {
                                         position: 'absolute', right: 0, top: 'calc(100% + 10px)',
                                         background: '#111827', border: '1px solid #1B3358',
                                         borderRadius: '12px', padding: '8px', minWidth: '180px',
-                                        boxShadow: '0 8px 32px #00000066', animation: 'fadeUp 0.15s ease',
+                                        boxShadow: '0 8px 32px #00000066',
                                     }}>
                                         <div style={{ padding: '8px 12px 12px', borderBottom: '1px solid #1B3358', marginBottom: '8px' }}>
                                             <p style={{ fontSize: '13px', fontWeight: 600, color: '#E8EAF0' }}>{user?.displayName || 'User'}</p>
@@ -110,9 +150,9 @@ const Navbar = () => {
                                             </span>
                                         </div>
                                         <button onClick={handleLogout} style={{
-                                            width: '100%', background: 'transparent', border: 'none', cursor: 'pointer',
-                                            display: 'flex', alignItems: 'center', gap: '8px',
-                                            padding: '8px 12px', borderRadius: '8px',
+                                            width: '100%', background: 'transparent', border: 'none',
+                                            cursor: 'pointer', display: 'flex', alignItems: 'center',
+                                            gap: '8px', padding: '8px 12px', borderRadius: '8px',
                                             color: '#F87171', fontSize: '13px', transition: 'background 0.15s',
                                         }}
                                             onMouseEnter={e => e.currentTarget.style.background = '#EF444415'}
@@ -127,16 +167,20 @@ const Navbar = () => {
                     )}
                 </div>
 
-                {/* Mobile */}
+                {/* Mobile button */}
                 <button onClick={() => setMenuOpen(!menuOpen)} className="mobile-menu-btn"
-                    style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#E8EAF0', display: 'none' }}>
+                    style={{
+                        background: 'transparent', border: 'none',
+                        cursor: 'pointer', color: NAV_TEXT, display: 'none',
+                    }}>
                     {menuOpen ? <IoCloseOutline size={26} /> : <IoMenuOutline size={26} />}
                 </button>
             </div>
 
+            {/* Mobile menu */}
             {menuOpen && (
                 <div style={{
-                    background: '#080C18', borderTop: '1px solid #1B3358',
+                    background: NAV_BG, borderTop: `1px solid ${NAV_BORDER}`,
                     padding: '16px 24px', display: 'flex', flexDirection: 'column', gap: '8px',
                 }}>
                     {!user ? (
