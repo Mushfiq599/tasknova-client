@@ -7,8 +7,8 @@
 <div align="center">
 
 [![Live Site](https://img.shields.io/badge/🌐_Live_Site-0ea5e9?style=for-the-badge&logoColor=white)](https://your-tasknova.vercel.app)
-[![Frontend Repo](https://img.shields.io/badge/Frontend-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/YOUR_USERNAME/tasknova-client)
-[![Backend Repo](https://img.shields.io/badge/Backend-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/YOUR_USERNAME/tasknova-server)
+[![Frontend Repo](https://img.shields.io/badge/Frontend-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Mushfiq599/tasknova-client)
+[![Backend Repo](https://img.shields.io/badge/Backend-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Mushfiq599/tasknova-server)
 [![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org)
 [![Stripe](https://img.shields.io/badge/Stripe-626CD9?style=for-the-badge&logo=stripe&logoColor=white)](https://stripe.com)
 
@@ -234,9 +234,9 @@ Frontend will run at: `http://localhost:3000`
 
 | Role | Email | Password |
 |---|---|---|
-| Admin | admin@tasknova.com | Admin@12345 |
-| Buyer | buyer@tasknova.com | Buyer@12345 |
-| Worker | worker@tasknova.com | Worker@12345 |
+| Admin | demoadmin@tasknova.com | DemoAdmin@123 |
+| Buyer | demobuyer@tasknova.com| DemoBuyer@123 |
+| Worker | demoworker@tasknova.com| DemoWorker@123 |
 
 *(Update these with your actual demo credentials)*
 
@@ -247,8 +247,8 @@ Frontend will run at: `http://localhost:3000`
 | Resource | Link |
 |---|---|
 | 🌐 Live Site | [your-tasknova.vercel.app](https://your-tasknova.vercel.app) |
-| 💻 Frontend Repo | [github.com/YOUR_USERNAME/tasknova-client](https://github.com/YOUR_USERNAME/tasknova-client) |
-| ⚙️ Backend Repo | [github.com/YOUR_USERNAME/tasknova-server](https://github.com/YOUR_USERNAME/tasknova-server) |
+| 💻 Frontend Repo | [github.com/Mushfiq599/tasknova-client](https://github.com/Mushfiq599/tasknova-client) |
+| ⚙️ Backend Repo | [github.com/Mushfiq599/tasknova-server](https://github.com/Mushfiq599/tasknova-server) |
 | 💳 Stripe Docs | [stripe.com/docs](https://stripe.com/docs) |
 | 🔥 Firebase Console | [firebase.google.com](https://firebase.google.com) |
 | 🍃 MongoDB Atlas | [mongodb.com/atlas](https://mongodb.com/atlas) |
